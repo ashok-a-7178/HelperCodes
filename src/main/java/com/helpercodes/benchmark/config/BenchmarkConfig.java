@@ -32,7 +32,7 @@ public record BenchmarkConfig(
                 16,
                 100,
                 16,
-                128,
+                2000,
                 base,
                 base.resolve("lucene-index"),
                 base.resolve("jvector-index"),

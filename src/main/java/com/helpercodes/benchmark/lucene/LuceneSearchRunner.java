@@ -4,12 +4,9 @@ import com.helpercodes.benchmark.api.SearchResultItem;
 import com.helpercodes.benchmark.api.SearchRunner;
 import com.helpercodes.benchmark.config.BenchmarkConfig;
 import com.helpercodes.benchmark.data.QuerySpec;
-import com.helpercodes.benchmark.data.QueryType;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.search.BooleanClause;
-import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.KnnFloatVectorQuery;
 import org.apache.lucene.search.Query;
@@ -45,13 +42,6 @@ public class LuceneSearchRunner implements SearchRunner {
             case RANGE_VECTOR -> new KnnFloatVectorQuery(
                     "vectorA", querySpec.vector(), querySpec.topK(), newRangeQuery("int0", querySpec.rangeMin(), querySpec.rangeMax()));
         };
-
-        if (querySpec.queryType() == QueryType.PURE_KEYWORD) {
-            BooleanQuery.Builder boosted = new BooleanQuery.Builder();
-            boosted.add(query, BooleanClause.Occur.MUST);
-            boosted.add(new KnnFloatVectorQuery("vectorA", querySpec.vector(), querySpec.topK()), BooleanClause.Occur.SHOULD);
-            query = boosted.build();
-        }
 
         TopDocs topDocs = searcher.search(query, querySpec.topK());
         List<SearchResultItem> results = new ArrayList<>(topDocs.scoreDocs.length);

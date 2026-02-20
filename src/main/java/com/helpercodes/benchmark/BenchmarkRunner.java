@@ -25,6 +25,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class BenchmarkRunner {
     private static final double NANOS_PER_SECOND = 1_000_000_000.0;
@@ -105,6 +106,10 @@ public class BenchmarkRunner {
         }
 
         pool.shutdown();
+        if (!pool.awaitTermination(1, TimeUnit.MINUTES)) {
+            pool.shutdownNow();
+            throw new IllegalStateException("Benchmark execution timed out while waiting for worker shutdown");
+        }
         long elapsed = System.nanoTime() - start;
         double qps = queries.isEmpty() ? 0 : queries.size() / (elapsed / NANOS_PER_SECOND);
         return new BenchmarkWorkloadResult(runner.name(), threads, rows, qps);

@@ -5,6 +5,7 @@ import com.helpercodes.benchmark.config.BenchmarkConfig;
 import java.util.SplittableRandom;
 
 public final class DatasetGenerator {
+    private static final double EPSILON = 1e-12;
     private static final String[] TOKENS = {
             "alpha", "beta", "gamma", "delta", "sigma", "omega", "search", "vector", "index", "benchmark",
             "quality", "latency", "throughput", "ranking", "comment", "hybrid", "keyword", "range", "lucene", "jvector"
@@ -65,7 +66,7 @@ public final class DatasetGenerator {
             vector[i] = v;
             norm += v * v;
         }
-        float invNorm = (float) (1.0 / Math.sqrt(norm + 1e-12));
+        float invNorm = (float) (1.0 / Math.sqrt(norm + EPSILON));
         for (int i = 0; i < dims; i++) {
             vector[i] *= invNorm;
         }

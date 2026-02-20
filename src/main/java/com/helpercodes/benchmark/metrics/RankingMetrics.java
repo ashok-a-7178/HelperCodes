@@ -30,8 +30,8 @@ public record RankingMetrics(
         Set<Integer> union = new HashSet<>(aSet);
         union.addAll(bSet);
 
-        int k = Math.max(1, Math.min(topK, Math.min(aIds.size(), bIds.size())));
-        double recall = k == 0 ? 0 : inter.size() / (double) k;
+        int k = Math.max(1, Math.min(topK, Math.max(aIds.size(), bIds.size())));
+        double recall = inter.size() / (double) k;
         double jaccard = union.isEmpty() ? 0 : inter.size() / (double) union.size();
 
         double spearman = spearman(aIds, bIds);
