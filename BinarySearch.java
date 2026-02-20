@@ -1,5 +1,9 @@
 public class BinarySearch {
     public static int search(int[] values, int target) {
+        if (values == null) {
+            return -1;
+        }
+
         int left = 0;
         int right = values.length - 1;
 
