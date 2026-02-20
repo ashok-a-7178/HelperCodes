@@ -71,7 +71,7 @@ public class JVectorSearchRunner implements SearchRunner {
             na += a[i] * a[i];
             nb += b[i] * b[i];
         }
-        return (float) (dot / (Math.sqrt(na) * Math.sqrt(nb) + 1e-12));
+        return (float) (dot / (Math.sqrt(na * nb) + 1e-12));
     }
 
     @Override

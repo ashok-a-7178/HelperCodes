@@ -27,6 +27,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class BenchmarkRunner {
+    private static final double NANOS_PER_SECOND = 1_000_000_000.0;
+
     public static void main(String[] args) throws Exception {
         BenchmarkConfig config = BenchmarkConfig.defaults().withOverrides(args);
         Files.createDirectories(config.outputDirectory());
@@ -104,7 +106,7 @@ public class BenchmarkRunner {
 
         pool.shutdown();
         long elapsed = System.nanoTime() - start;
-        double qps = queries.isEmpty() ? 0 : queries.size() / (elapsed / 1_000_000_000.0);
+        double qps = queries.isEmpty() ? 0 : queries.size() / (elapsed / NANOS_PER_SECOND);
         return new BenchmarkWorkloadResult(runner.name(), threads, rows, qps);
     }
 

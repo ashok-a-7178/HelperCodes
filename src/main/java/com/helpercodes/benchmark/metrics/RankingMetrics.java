@@ -65,7 +65,7 @@ public record RankingMetrics(
             return Set.of();
         }
         int boundedEnd = Math.min(end, input.size());
-        return new HashSet<>(new ArrayList<>(input.subList(start, boundedEnd)));
+        return new HashSet<>(input.subList(start, boundedEnd));
     }
 
     private static double spearman(List<Integer> aIds, List<Integer> bIds) {
@@ -90,6 +90,6 @@ public record RankingMetrics(
             return 0;
         }
         double sumSq = diffs.stream().mapToDouble(d -> d * d).sum();
-        return 1.0 - ((6.0 * sumSq) / (n * (n * n - 1.0)));
+        return 1.0 - ((6.0 * sumSq) / ((double) n * (n * n - 1)));
     }
 }

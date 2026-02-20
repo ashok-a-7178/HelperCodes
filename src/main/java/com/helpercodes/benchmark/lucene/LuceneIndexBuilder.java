@@ -37,7 +37,7 @@ public class LuceneIndexBuilder implements IndexBuilder {
     @Override
     public void add(DocumentRecord record) throws IOException {
         Document doc = new Document();
-        doc.add(new StringField("docId", Integer.toString(record.docId()), Field.Store.YES));
+        doc.add(new StoredField("docId", record.docId()));
 
         for (int i = 0; i < record.intFields().length; i++) {
             doc.add(new IntPoint("int" + i, record.intFields()[i]));

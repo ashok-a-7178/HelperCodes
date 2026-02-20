@@ -57,7 +57,7 @@ public class LuceneSearchRunner implements SearchRunner {
         List<SearchResultItem> results = new ArrayList<>(topDocs.scoreDocs.length);
         for (ScoreDoc sd : topDocs.scoreDocs) {
             Document d = searcher.doc(sd.doc);
-            results.add(new SearchResultItem(Integer.parseInt(d.get("docId")), sd.score));
+            results.add(new SearchResultItem(d.getField("docId").numericValue().intValue(), sd.score));
         }
         return results;
     }
