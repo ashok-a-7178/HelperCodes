@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class DuplicateElementFinder {
             return duplicates;
         }
 
-        Set<T> seen = new LinkedHashSet<>();
+        Set<T> seen = new HashSet<>();
         Set<T> duplicateSet = new LinkedHashSet<>();
 
         for (T value : values) {
