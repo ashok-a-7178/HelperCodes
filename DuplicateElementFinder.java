@@ -20,14 +20,14 @@ public class DuplicateElementFinder {
         }
 
         Set<T> seen = new HashSet<>();
-        Set<T> duplicateSet = new LinkedHashSet<>();
+        Set<T> duplicates = new LinkedHashSet<>();
 
         for (T value : values) {
             if (!seen.add(value)) {
-                duplicateSet.add(value);
+                duplicates.add(value);
             }
         }
 
-        return new ArrayList<>(duplicateSet);
+        return new ArrayList<>(duplicates);
     }
 }
