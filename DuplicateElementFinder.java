@@ -14,10 +14,9 @@ public class DuplicateElementFinder {
      * @param values source list to inspect; null or empty list returns an empty result
      * @return duplicates in the order their second occurrence is first detected
      */
-    public static <T> ArrayList<T> findDuplicates(List<T> values) {
-        ArrayList<T> duplicates = new ArrayList<>();
+    public static <T> List<T> findDuplicates(List<T> values) {
         if (values == null || values.isEmpty()) {
-            return duplicates;
+            return new ArrayList<>();
         }
 
         Set<T> seen = new HashSet<>();
@@ -29,7 +28,6 @@ public class DuplicateElementFinder {
             }
         }
 
-        duplicates.addAll(duplicateSet);
-        return duplicates;
+        return new ArrayList<>(duplicateSet);
     }
 }
