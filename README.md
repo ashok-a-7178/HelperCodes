@@ -57,6 +57,35 @@ Outputs are written to `benchmark-output/`:
 - `ranking-comparison-metrics.csv`
 - separate Lucene and JVector index directories
 
+## CRUD Ticket Benchmark
+
+The repository also includes a deterministic CRUD benchmark for a ticket system.
+It generates insert/read/update/delete actions across many users, stores ticket
+metadata with timestamp and user ID, replays the same workload against MySQL,
+HBase, and ClickHouse-style components, and writes action latency analytics.
+
+Run the default workload (100k actions, 10k users):
+
+```bash
+mvn exec:java -Dexec.mainClass=com.helpercodes.crudbenchmark.CrudBenchmarkRunner
+```
+
+Run a smaller local workload:
+
+```bash
+mvn exec:java -Dexec.mainClass=com.helpercodes.crudbenchmark.CrudBenchmarkRunner -Dexec.args="users=100 actions=1000 seed=42 output=crud-benchmark-output"
+```
+
+CRUD analytics are written to `crud-benchmark-output/`:
+
+- `crud-action-stats.csv`
+- `crud-action-stats.html`
+
+The included MySQL, HBase, and ClickHouse components are in-process benchmark
+adapters so the workload can run without external database services. Replace the
+`TicketStore` implementations with real client-backed adapters when database
+clusters are available.
+
 ## Reproducibility
 
 - Data generation is deterministic from `(seed, docId)`.
