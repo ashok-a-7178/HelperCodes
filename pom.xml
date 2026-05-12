@@ -12,6 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lucene.version>9.11.1</lucene.version>
         <jvector.version>4.0.0-rc.8</jvector.version>
+        <exec.mainClass>com.helpercodes.benchmark.BenchmarkRunner</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -49,7 +50,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
-                    <mainClass>com.helpercodes.benchmark.BenchmarkRunner</mainClass>
+                    <mainClass>${exec.mainClass}</mainClass>
                 </configuration>
             </plugin>
         </plugins>
