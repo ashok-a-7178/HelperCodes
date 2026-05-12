@@ -8,6 +8,7 @@ import java.util.Map;
 
 abstract class AbstractMapTicketStore implements TicketStore {
     private final Map<String, TicketRecord> tickets;
+    private Map<String, String> lastReadResult = Map.of();
 
     AbstractMapTicketStore(Map<String, TicketRecord> tickets) {
         this.tickets = tickets;
@@ -42,9 +43,9 @@ abstract class AbstractMapTicketStore implements TicketStore {
             return;
         }
         if (action.requestedFields().isEmpty()) {
-            new LinkedHashMap<>(record.fields());
+            lastReadResult = new LinkedHashMap<>(record.fields());
         } else {
-            record.selectedFields(action.requestedFields());
+            lastReadResult = record.selectedFields(action.requestedFields());
         }
     }
 
